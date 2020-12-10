@@ -64,10 +64,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\cameraController.cs" />
-    <Compile Include="Assets\Scripts\followOrient.cs" />
-    <Compile Include="Assets\Scripts\mechFollow.cs" />
-    <Compile Include="Assets\Scripts\playerController.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\EnemyInterface.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Types of Enemies\brute.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Types of Enemies\minion.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Spawning\ObjectPooler.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Spawning\deployMinion.cs" />
+    <Compile Include="Assets\Scripts\Items Anim\ItemInterface.cs" />
+    <Compile Include="Assets\Scripts\Items Anim\ItemPool.cs" />
+    <Compile Include="Assets\Scripts\Items Anim\Items.cs" />
+    <Compile Include="Assets\Scripts\Items Anim\Mech.cs" />
+    <Compile Include="Assets\Scripts\Player Logic\Polymorphism\Player.cs" />
+    <Compile Include="Assets\Scripts\Player Logic\Polymorphism\PlayerInterface.cs" />
+    <Compile Include="Assets\Scripts\Player Logic\Polymorphism\playerController.cs" />
+    <Compile Include="Assets\Scripts\Player Logic\cameraController.cs" />
+    <Compile Include="Assets\Scripts\Player Logic\followOrient.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -608,6 +619,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Cinemachine">
+      <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
@@ -626,17 +640,14 @@
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.cinemachine.editor">
+      <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Cinemachine">
-      <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>C:/Users/Bronj/Documents/Debronni/Projects/Coding/Unity/Superhero Ball/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
