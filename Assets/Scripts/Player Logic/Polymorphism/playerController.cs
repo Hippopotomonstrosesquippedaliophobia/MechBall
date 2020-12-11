@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class playerController : Player
 {
+    // Jump Mechanic
+    float startTime;
+    float releaseTime;
+    float timeTaken;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -15,104 +20,63 @@ public class playerController : Player
     void Update()
     {
         // Check for Mech Activation - Toggle
-        if (Input.GetKeyUp(KeyCode.LeftAlt) && !wearingMech)
-        {
-            Debug.Log("Alt Pressed");
-            putOnMech = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftAlt) && wearingMech)
-        {
-            wearingMech = false;
-        }
+        if (Input.GetKeyUp(KeyCode.Mouse2) && !wearingMech) 
+            AttachMech();  
+        else if (Input.GetKeyUp(KeyCode.Mouse2) && wearingMech) 
+            DetachMech();  
     }
 
     // Update is called every fixed framerate frame - Good for Physics
     private void FixedUpdate()
     {
-        // Check if player is grounded
-        grounded = IsGrounded();
-
         // Check for Jumping
-        if (Input.GetKey(KeyCode.Space) && grounded)
-            Jump();
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            startTime = Time.time;
+            //Get time now to see how high to jump
+        }
+        if (Input.GetKeyUp(KeyCode.Space) && grounded)
+        {
+            //Time it was released
+            releaseTime = Time.time;
+            timeTaken = releaseTime - startTime;
 
+            //Call jump with strength parameter
+            Jump(timeTaken);
+        }
         // Check for movement of character
         MoveCharacter(movement);
+    }
 
-        // Put on the mech?
-        if (putOnMech)
-        {
-            AttachMech();
-            putOnMech = false; // reset so this doesnt occur all the time
-        }
-        // Behaviour whilst wearing Mech Suit
+    // Functions where they should be called last for smoother feel
+    private void LateUpdate()
+    {
+        // Check if player is grounded - LEAVE HERE IT IS SMOOTH
+        grounded = IsGrounded();
+
+        // Behaviour whilst wearing Mech Suit - LEAVE HERE IT IS SMOOTH
         if (wearingMech)
         {
-            //RayCastTurretLook();
+            AttachedToPlayer(mechSuit);
         }
-        // Remove Mech
-        if (!wearingMech)
-        {
-            DetachMech();
-        }
+    }
+
+    // Get any object to be attached to the player. Call this in Last update for no lag
+    private void AttachedToPlayer(Transform obj)
+    {
+        Vector3 desiredPosition = orientationOfPlayer.position;
+        desiredPosition.y -= 0.5f;
+        Vector3 smoothedPosition = Vector3.SmoothDamp(obj.transform.position, desiredPosition, ref velocity, 0f);
+        obj.transform.position = smoothedPosition;
     }
 
     private void AttachMech()
     {
-        Collider mechCollider = mechSuit.GetComponent<Collider>();
-
-        //Disable mech suit collider whilst on player
-        mechCollider.enabled = !mechCollider.enabled;
-
-        Vector3 attachedPos = player.transform.position;
-
-        attachedPos.y -= 0.5f;
-
-        mechSuit.transform.position = attachedPos;
-        mechSuit.transform.SetParent(player);
-
         wearingMech = true; // Let the game know you're wearing the mech suit
     }
 
     private void DetachMech()
     {
-        //Check if the first child of this object has children.
-        if (player.transform.GetChild(0) == null)
-        {
-
-        }
-        else // If it does then that means we detatch it
-        {
-            //Wait a while to enable mech collider again
-            StartCoroutine(ReenableMechCollider());
-            mechSuit.transform.SetParent(null);
-        }
-
+        wearingMech = false; // Let the game know you're not wearing the mech suit
     }
-
-    public IEnumerator ReenableMechCollider()
-    {
-        yield return new WaitForSeconds(3000); //3 sec wait
-        //Reenable mech suit collider
-        Collider mechCollider = mechSuit.GetComponent<Collider>();
-        mechCollider.enabled = mechCollider.enabled;
-    }
-
-
-
-
-    ////Check for collision with item
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    Debug.Log("Hi");
-    //    Debug.Log(collision.gameObject.layer);
-
-    //    //if (collision.collider.gameObject.layer == itemMask)
-    //    //{
-    //    //    putOnMech = true;
-    //    //    Debug.Log("Mech time");
-    //    //}
-
-    //}
-
 }

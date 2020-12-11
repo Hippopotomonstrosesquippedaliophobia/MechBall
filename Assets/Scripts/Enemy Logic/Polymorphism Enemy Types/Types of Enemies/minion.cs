@@ -12,12 +12,13 @@ public class minion : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+     void Start()
     {
-        this.rb = this.GetComponent<Rigidbody>();
-        this.followThis = GameObject.Find("Core");
-        this.enemySpeed = 0.09f;
+        this.rb = transform.GetChild(0).GetComponent<Rigidbody>();
+        followThis = GameObject.Find("Core");
+        enemySpeed = 0.09f;
     }
+
 
     // Update is called once per frame
     void Update()

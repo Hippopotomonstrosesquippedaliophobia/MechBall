@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1699460942074391266}
-  m_Layer: 0
-  m_Name: Enemy 1
+  - component: {fileID: 5384199278368510462}
+  m_Layer: 9
+  m_Name: Melee Minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,6 +32,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5384199278368510462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1699460942074391267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 109fefb704660d042963d747c21593f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  followThis: {fileID: 0}
+  enemySpeed: 0.09
 --- !u!1 &1699460943361452149
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,9 +59,8 @@ GameObject:
   - component: {fileID: 1699460943361452144}
   - component: {fileID: 1699460943361452145}
   - component: {fileID: 1699460943361452150}
-  - component: {fileID: 1699460943361452151}
-  - component: {fileID: 1699460943361452147}
-  m_Layer: 0
+  - component: {fileID: 3597249039821066158}
+  m_Layer: 9
   m_Name: Enemy Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +142,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1699460943361452151
+--- !u!54 &3597249039821066158
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,18 +158,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1699460943361452147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1699460943361452149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 109fefb704660d042963d747c21593f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  followThis: {fileID: 0}
-  enemySpeed: 0.09

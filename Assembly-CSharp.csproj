@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\EnemyInterface.cs" />
     <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Types of Enemies\brute.cs" />
+    <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Types of Enemies\humanoid.cs" />
     <Compile Include="Assets\Scripts\Enemy Logic\Polymorphism Enemy Types\Types of Enemies\minion.cs" />
     <Compile Include="Assets\Scripts\Enemy Logic\Spawning\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\Enemy Logic\Spawning\deployMinion.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Player Logic\Polymorphism\Player.cs" />
     <Compile Include="Assets\Scripts\Player Logic\Polymorphism\PlayerInterface.cs" />
     <Compile Include="Assets\Scripts\Player Logic\Polymorphism\playerController.cs" />
+    <Compile Include="Assets\Scripts\Player Logic\camera\Cam.cs" />
     <Compile Include="Assets\Scripts\Player Logic\cameraController.cs" />
     <Compile Include="Assets\Scripts\Player Logic\followOrient.cs" />
     <Reference Include="UnityEngine">

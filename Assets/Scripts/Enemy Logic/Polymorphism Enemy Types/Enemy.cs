@@ -12,12 +12,12 @@ public class Enemy : MonoBehaviour, EnemyInterface
     public void FollowPlayer()
     {
         // Get orientation point to follow and look at ball so that we can always determine where to go
-        rb.transform.position = Vector3.MoveTowards(rb.transform.position, followThis.transform.position, enemySpeed);
+        this.rb.transform.position = Vector3.MoveTowards(this.rb.transform.position, followThis.transform.position, enemySpeed);
         Vector3 targetPostition = new Vector3(  followThis.transform.position.x,
-                                                rb.transform.position.y,
+                                                this.rb.transform.position.y,
                                                 followThis.transform.position.z
                                               );
-        rb.transform.LookAt(targetPostition);
+        this.rb.transform.LookAt(targetPostition);
     }
 
     //Default attack

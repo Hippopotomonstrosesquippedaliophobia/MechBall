@@ -13,7 +13,9 @@ public interface PlayerInterface
     bool IsGrounded();
 
     // All players can potentially jump
-    void Jump();
+    void Jump(float strength);
+
+    void CreateDust();
 
  
 }

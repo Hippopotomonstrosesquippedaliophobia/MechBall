@@ -8,12 +8,14 @@ public class Player : MonoBehaviour, PlayerInterface
     [SerializeField] public Transform cam;
     [SerializeField] public Transform player, playerBody, mechSuit;
     [SerializeField] public Transform orientationOfPlayer;
+    [SerializeField] public ParticleSystem dust;
 
     [SerializeField] public Vector2 movement;
+    [SerializeField] public Vector2 lastMovement = new Vector2(0,0);
+    public Vector3 velocity = Vector3.zero;
     [SerializeField] public bool jumping = false;
     [SerializeField] public bool readyToJump = true;
     [SerializeField] public bool grounded = false;
-    [SerializeField] public bool putOnMech = false;
     [SerializeField] public bool wearingMech = false;
 
     [SerializeField] public float groundDistance = 30f;
@@ -29,7 +31,7 @@ public class Player : MonoBehaviour, PlayerInterface
 
     [SerializeField] public RaycastHit hit;
 
-    public void RayCastTurretLook()
+    public void MechLook()
     {
         // Reconstruct the vector to eliminate up and down of y axis
         Vector3 reconstruct = playerBody.position;
@@ -85,35 +87,57 @@ public class Player : MonoBehaviour, PlayerInterface
         // Left and right movement
         rb.AddForce(cam.transform.right * movement.x * speed * Time.deltaTime * multiplier);
 
+        if (grounded)
+            if ((lastMovement.x != movement.x && lastMovement.x != 0) || (lastMovement.y != movement.y && lastMovement.y != 0))
+                CreateDust();
+
+        lastMovement = new Vector2(movement.x, movement.y);
     }
 
     public bool IsGrounded()
     {
-        //Debug.DrawRay(playerBody.position, -Vector3.up * 50f, Color.white);
-        return Physics.CheckSphere(playerBody.position, groundDistance, ground_mask);
+        bool grounded = (Physics.Raycast(orientationOfPlayer.position,
+                                         Vector3.down, 
+                                         0.65f, 
+                                         ground_mask)); 
+       
+        Debug.DrawRay(orientationOfPlayer.position,
+                      Vector3.down * 0.65f,
+                      Color.green);
+
+        return grounded; //Physics.CheckSphere(playerBody.position, groundDistance, ground_mask);
     }
 
-    public void Jump()
+    public void Jump(float strength)
     {
-        readyToJump = false;
+        readyToJump = false; // RESET
+
+        //Clamps jump strength between 0.9 multiplier and 2.7 time multiplier
+        strength = Mathf.Clamp(strength, 0.9f, 2.7f);
 
         //Add jump forces
-        rb.AddForce(Vector2.up * jumpForce * 1.5f);
+        rb.AddForce(Vector2.up * (strength * jumpForce) * 1.5f);
 
-        //If jumping while falling, reset y velocity.
-        Vector3 vel = rb.velocity;
-        if (rb.velocity.y < 0.5f)
-            rb.velocity = new Vector3(vel.x, 0, vel.z);
-        else if (rb.velocity.y > 0)
-            rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
+        Cam cameraClass = GameObject.Find("Player Camera").GetComponent<Cam>();
 
-        Debug.Log("JUMPED");
+        //Power Jump
+        if (strength > (2.7 - 0.9) / 2)
+        {
+            CreateDust(); 
+        }
+
+        Debug.Log("Strength of jump: " + strength);
     }
 
     // Player's attack
     public void Attack()
     {
         //todo
+    }
+
+    public void CreateDust()
+    {
+        dust.Play();
     }
 
     public Vector2 FindVelRelativeToLook()
