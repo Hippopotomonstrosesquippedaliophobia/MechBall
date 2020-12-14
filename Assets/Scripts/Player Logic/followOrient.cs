@@ -12,11 +12,12 @@ public class followOrient : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cam = GameObject.Find("Player Camera").transform;
+        player = GameObject.Find("Stationary Sphere").transform;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         Vector3 desiredPosition = player.position;
         Vector3 smoothedPosition = Vector3.SmoothDamp(this.transform.position, desiredPosition, ref velocity, 0f);

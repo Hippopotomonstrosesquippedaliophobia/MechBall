@@ -33,22 +33,11 @@ public class Player : MonoBehaviour, PlayerInterface
 
     public void MechLook()
     {
-        // Reconstruct the vector to eliminate up and down of y axis
-        Vector3 reconstruct = playerBody.position;
-        reconstruct.y = 0 + 3f;
-
-        //RayCast out to check for looking direction
-        Physics.Raycast(reconstruct, orientationOfPlayer.forward, out hit, Mathf.Infinity, layerMask);
-
-        //Debugging Ray Cast
-        Debug.Log(hit.point);
-        Debug.DrawRay(reconstruct, cam.forward * hit.distance, Color.yellow);
-
         // Where to tell turret to look
-        Quaternion lookhere = Quaternion.LookRotation(hit.point);
+        Quaternion lookhere = Quaternion.LookRotation(cam.forward);
 
         // Execute Rotation Smoothly instead of snapping to location
-        player.rotation = Quaternion.RotateTowards(player.rotation, lookhere, 100f);
+        mechSuit.rotation = Quaternion.RotateTowards(mechSuit.rotation, lookhere, 100f);
     }
 
     //Movement of character
@@ -81,8 +70,9 @@ public class Player : MonoBehaviour, PlayerInterface
             multiplierV = 0.5f;
         }
 
+
         //Apply forces to move player 
-        rb.AddForce(orientationOfPlayer.transform.forward * movement.y * speed * Time.deltaTime * multiplier * multiplierV);
+        rb.AddForce(cam.transform.forward * movement.y * speed * Time.deltaTime * multiplier * multiplierV);
 
         // Left and right movement
         rb.AddForce(cam.transform.right * movement.x * speed * Time.deltaTime * multiplier);
@@ -117,8 +107,6 @@ public class Player : MonoBehaviour, PlayerInterface
 
         //Add jump forces
         rb.AddForce(Vector2.up * (strength * jumpForce) * 1.5f);
-
-        Cam cameraClass = GameObject.Find("Player Camera").GetComponent<Cam>();
 
         //Power Jump
         if (strength > (2.7 - 0.9) / 2)

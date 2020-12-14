@@ -12,11 +12,12 @@ public class humanoid : Enemy
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.rb = transform.GetChild(0).GetComponent<Rigidbody>();
         followThis = GameObject.Find("Core");
         enemySpeed = 0.09f;
+        attackRange = 5f;
     }
 
 

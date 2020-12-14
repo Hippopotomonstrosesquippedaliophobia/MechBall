@@ -6,7 +6,12 @@ public class Enemy : MonoBehaviour, EnemyInterface
 {
     [SerializeField] public Rigidbody rb;
     [SerializeField] public GameObject followThis;
+    [SerializeField] public Health hp;
+
     [SerializeField] public float enemySpeed;
+    [SerializeField] public float attackRange;
+    [SerializeField] public float distanceFromPlayer;
+
 
     // Default Movement - Can be overridden for more complex movement
     public void FollowPlayer()
@@ -18,6 +23,21 @@ public class Enemy : MonoBehaviour, EnemyInterface
                                                 followThis.transform.position.z
                                               );
         this.rb.transform.LookAt(targetPostition);
+    }
+
+    public void CloseToPlayer()
+    {
+        distanceFromPlayer = Vector3.Distance(rb.transform.position, followThis.transform.position);
+
+        // Player can be attacked
+        if (distanceFromPlayer <= attackRange)
+        {
+            AttackPlayer();
+            //Debug.Log("Close: " +distanceFromPlayer);
+            //hp.TakeDamage(this.transform, 5f);
+        }
+        else // Player too far too attack
+            return;
     }
 
     //Default attack

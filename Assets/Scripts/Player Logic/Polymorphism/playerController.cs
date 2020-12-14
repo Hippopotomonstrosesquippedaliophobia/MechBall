@@ -9,10 +9,15 @@ public class playerController : Player
     float releaseTime;
     float timeTaken;
 
+    public Mech mechInstance;
+
     // Start is called before the first frame update
     private void Start()
     {
-
+        cam = GameObject.Find("Player Camera").transform;
+        orientationOfPlayer = GameObject.Find("Orientation of Character").transform;
+        mechSuit = GameObject.Find("mech").transform;
+        mechInstance = GameObject.Find("mech").GetComponent<Mech>();
     }
 
 
@@ -46,6 +51,13 @@ public class playerController : Player
         }
         // Check for movement of character
         MoveCharacter(movement);
+
+
+
+        if (wearingMech && Input.GetKey(KeyCode.Mouse0))
+        {
+            Attack();
+        }
     }
 
     // Functions where they should be called last for smoother feel
@@ -61,6 +73,11 @@ public class playerController : Player
         }
     }
 
+    new public void Attack()
+    {
+       mechInstance.Shoot();
+    }
+
     // Get any object to be attached to the player. Call this in Last update for no lag
     private void AttachedToPlayer(Transform obj)
     {
@@ -68,6 +85,9 @@ public class playerController : Player
         desiredPosition.y -= 0.5f;
         Vector3 smoothedPosition = Vector3.SmoothDamp(obj.transform.position, desiredPosition, ref velocity, 0f);
         obj.transform.position = smoothedPosition;
+
+        //Mech looks with camera
+        MechLook();
     }
 
     private void AttachMech()

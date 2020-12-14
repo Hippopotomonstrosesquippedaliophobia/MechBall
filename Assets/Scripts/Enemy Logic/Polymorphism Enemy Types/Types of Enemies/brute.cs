@@ -5,15 +5,27 @@ using UnityEngine;
 public class brute : Enemy
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.rb = transform.GetChild(0).GetComponent<Rigidbody>();
         followThis = GameObject.Find("Core");
         enemySpeed = 0.09f;
+        attackRange = 16f;
+
+        hp = rb.transform.parent.GetComponent<Health>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+        // If player is dead, player is dead :^)
+        //if (hp.IsDead()) hp.Die();
+
+        // Execute attack if player is near
+        CloseToPlayer();
+    }
+
+    private void FixedUpdate()
     {
         FollowPlayer();
     }
@@ -21,6 +33,6 @@ public class brute : Enemy
     // Overrides normal attack - Ranged
     new public void AttackPlayer()
     {
-        //todo
+        Debug.Log("Brute attacked");
     }
 }
