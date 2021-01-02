@@ -37,7 +37,7 @@ public class minion : Enemy
     }
 
     // Overrides Normal attack - Melee
-    new public void AttackPlayer()
+    public void AttackPlayer()
     {
         Debug.Log("Minion attacked");
     }

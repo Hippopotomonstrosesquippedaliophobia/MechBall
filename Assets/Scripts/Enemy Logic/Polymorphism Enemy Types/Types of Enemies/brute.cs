@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class brute : Enemy
 {
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private Enemy parentPolymorphFile;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,6 +16,7 @@ public class brute : Enemy
         attackRange = 16f;
 
         hp = rb.transform.parent.GetComponent<Health>();
+        parentPolymorphFile = rb.transform.parent.GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -33,6 +37,9 @@ public class brute : Enemy
     // Overrides normal attack - Ranged
     new public void AttackPlayer()
     {
-        Debug.Log("Brute attacked");
+        // despite direction - add speed. if rest are zero it will return 0 if multiplied by zero
+        Vector3 force = parentPolymorphFile.targetPostition;
+
+        Instantiate(bullet, this.transform.position, Quaternion.identity);
     }
 }

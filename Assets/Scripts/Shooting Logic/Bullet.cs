@@ -25,7 +25,7 @@ public class Bullet : BulletPool, BulletInterface
             ApplyDamage(whatGotHit);
         }
 
-        //Destroy(gameObject);
+        Destroy(gameObject);
         //this.gameObject.SetActive(false); // repool bullet
     }
 
